@@ -23,7 +23,7 @@ function init() {
             {
                 type: 'list',
                 message: 'Welcome to the main menu.',
-                name: 'mainmenu',
+                name: 'mainMenu',
                 choices: [
                     'view all departments', 
                     'view all roles', 
@@ -35,26 +35,21 @@ function init() {
                 ],
             },
 
-            {
-                type: 'input',
-                name: 'name',
-                message: 'What is your name?',
-            },
-            {
-                type: 'checkbox',
-                message: 'What languages do you know?',
-                name: 'stack',
-                choices: ['HTML', 'CSS', 'JavaScript', 'MySQL'],
-            },
+        ]) .then(choice => {
+            if (choice.mainMenu === 'view all departments') {
+                console.log('success!');
+            }
 
-        ])
-        .then((data) => {
-            const filename = `${data.name.toLowerCase().split(' ').join('')}.json`;
-
-            fs.writeFile(filename, generateHTML(data), (err) =>
-                err ? console.log(err) : console.log('Success!')
-            );
         });
+
+        // .then((data) => {
+        //     const filename = `${data.name.toLowerCase().split(' ').join('')}.json`;
+
+        //     fs.writeFile(filename, generateHTML(data), (err) =>
+        //         err ? console.log(err) : console.log('Success!')
+        //     );
+        // });
+       
 
 }
 // ^^ end init() function ^^ //

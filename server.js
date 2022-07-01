@@ -21,6 +21,21 @@ function init() {
     inquirer
         .prompt([
             {
+                type: 'list',
+                message: 'Welcome to the main menu.',
+                name: 'mainmenu',
+                choices: [
+                    'view all departments', 
+                    'view all roles', 
+                    'view all employees',
+                    'add a department',
+                    'add a role',
+                    'add an employee',
+                    'update an employee role',
+                ],
+            },
+
+            {
                 type: 'input',
                 name: 'name',
                 message: 'What is your name?',
@@ -31,12 +46,7 @@ function init() {
                 name: 'stack',
                 choices: ['HTML', 'CSS', 'JavaScript', 'MySQL'],
             },
-            {
-                type: 'list',
-                message: 'What is your preferred method of communication?',
-                name: 'contact',
-                choices: ['email', 'phone', 'telekinesis'],
-            },
+
         ])
         .then((data) => {
             const filename = `${data.name.toLowerCase().split(' ').join('')}.json`;

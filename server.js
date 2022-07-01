@@ -22,7 +22,7 @@ function init() {
         .prompt([
             {
                 type: 'list',
-                message: 'Welcome to the main menu.',
+                message: '\nWelcome to the Main Menu. \nPlease make a choice to continue:',
                 name: 'mainMenu',
                 choices: [
                     'view all departments', 
@@ -37,21 +37,23 @@ function init() {
 
         ]) .then(choice => {
             if (choice.mainMenu === 'view all departments') {
-                console.log('success!');
+                console.log('success-departments!');
+            } else if (choice.mainMenu === 'view all roles') {
+                console.log('success-roles!');
+            } else if (choice.mainMenu === 'view all employees') {
+                console.log('success-employees');
+            } else if (choice.mainMenu === 'add a department') {
+                console.log('success-add Department');
+            } else if (choice.mainMenu === 'add a role') {
+                console.log('success-add role');
+            } else if (choice.mainMenu === 'add an employee') {
+                console.log('success-add an employhee');
+            } else if (choice.mainMenu === 'update an employee role') {
+                console.log('success-add update an employee role');
             }
 
-        });
-
-        // .then((data) => {
-        //     const filename = `${data.name.toLowerCase().split(' ').join('')}.json`;
-
-        //     fs.writeFile(filename, generateHTML(data), (err) =>
-        //         err ? console.log(err) : console.log('Success!')
-        //     );
-        // });
-       
-
-}
+        });       
+};
 // ^^ end init() function ^^ //
 
 

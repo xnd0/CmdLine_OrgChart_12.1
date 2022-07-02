@@ -9,6 +9,8 @@ import inquirer from 'inquirer';
 // const mysql = require('mysql2');
 import mysql from 'mysql2';
 
+// import db from './config/connection.js';
+
 const PORT = process.env.PORT || 3001;
 const app = express();
 
@@ -38,6 +40,7 @@ function init() {
         ]) .then(choice => {
             if (choice.mainMenu === 'view all departments') {
                 console.log('success-departments!');
+                viewDepartments();
             } else if (choice.mainMenu === 'view all roles') {
                 console.log('success-roles!');
             } else if (choice.mainMenu === 'view all employees') {
@@ -52,7 +55,13 @@ function init() {
                 console.log('success-add update an employee role');
             }
 
-        });       
+        });    
+        
+        // View Departments choice function
+        function viewDepartments() {
+            console.log('viewDepartments function works');
+        }
+
 };
 // ^^ end init() function ^^ //
 

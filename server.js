@@ -159,7 +159,7 @@ function init() {
                     name: 'addDept',
                 }
             ]).then(userInput => {
-                const sqlInput = `SELECT * FROM department`;
+                const sqlInput = `INSERT INTO department (name) VALUES ("${userInput.addDept}");`;
 
                 console.log("input is: " + userInput.addDept);
 
@@ -167,7 +167,7 @@ function init() {
                     if (err) {
                         console.log(err);
                     };
-                    console.log("View All Employees:")
+                    console.log("Here is the updated department database:")
                     console.table(data);
         
                     wait(1000);

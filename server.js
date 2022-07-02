@@ -38,6 +38,14 @@ const db = mysql.createConnection({
     database: 'user_db'
 })
 
+function wait(ms){
+    var start = new Date().getTime();
+    var end = start;
+    while(end < start + ms) {
+      end = new Date().getTime();
+   }
+ }
+ 
 
 function init() {
     // Need the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
@@ -89,10 +97,21 @@ function init() {
             db.query(sqlInput, (err, data) => {
                 if (err) {
                     console.log(err);
-                }
+                };
+                console.log("All Departments:")
                 console.table(data);
+
+                // setInterval(init(), 2000);
+                
+                wait(2000);
+                init();
+                
             });
 
+
+        function viewRoles() {
+            console.log('viewRoles function works');
+        }    
 
         }
 

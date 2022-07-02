@@ -79,6 +79,7 @@ function init() {
                 viewEmployees();
             } else if (choice.mainMenu === 'add a department') {
                 console.log('success-add Department');
+                addDepartments();
             } else if (choice.mainMenu === 'add a role') {
                 console.log('success-add role');
             } else if (choice.mainMenu === 'add an employee') {
@@ -107,7 +108,6 @@ function init() {
     // display the job title, role id, the department that role belongs to, and the salary for that role    
     function viewRoles() {
         console.log('viewRoles function works');
-        // const sqlInput = `SELECT * FROM role`;
         const sqlInput = `
             SELECT role.id, role.title, department.name, role.salary
             FROM role, department
@@ -128,7 +128,6 @@ function init() {
     // display employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to    
     function viewEmployees() {
         console.log('viewEmployees function works');
-        // const sqlInput = `SELECT * FROM employee`;
         const sqlInput = `
             SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, department.name AS manager
             FROM employee 
@@ -148,6 +147,42 @@ function init() {
             init();
         });
     }
+    // addDepartment function - prompt to enter name of the department and it is added to the database
+    function addDepartments() {
+        console.log('addDepartments function works');
+
+        inquirer
+            .prompt([
+                {
+                    type: 'input',
+                    message: '\nPlease enter the name of the department you would like to add:\n',
+                    name: 'addDept',
+                }
+            ]).then(userInput => {
+                const sqlInput = `SELECT * FROM department`;
+
+                console.log("input is: " + userInput.addDept);
+
+                db.query(sqlInput, (err, data) => {
+                    if (err) {
+                        console.log(err);
+                    };
+                    console.log("View All Employees:")
+                    console.table(data);
+        
+                    wait(1000);
+                    init();
+                });
+            });
+                
+
+
+
+    }
+
+
+
+
 };
 // ^^ end init() function ^^ //
 

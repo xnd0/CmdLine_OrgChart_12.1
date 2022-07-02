@@ -76,6 +76,7 @@ function init() {
                 viewRoles();
             } else if (choice.mainMenu === 'view all employees') {
                 console.log('success-employees');
+                viewEmployees();
             } else if (choice.mainMenu === 'add a department') {
                 console.log('success-add Department');
             } else if (choice.mainMenu === 'add a role') {
@@ -118,8 +119,23 @@ function init() {
                 wait(1000);
                 init();
             });
-        }    
+        }
+        // display employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to    
+        function viewEmployees() {
+            console.log('viewEmployees function works');
+            const sqlInput = `SELECT * FROM employee`;
 
+            db.query(sqlInput, (err, data) => {
+                if (err) {
+                    console.log(err);
+                };
+                console.log("View All Employees:")
+                console.table(data);
+
+                wait(1000);
+                init();
+            });
+        }
     };
 // ^^ end init() function ^^ //
 

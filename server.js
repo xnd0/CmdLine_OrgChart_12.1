@@ -38,14 +38,14 @@ const db = mysql.createConnection({
     database: 'user_db'
 })
 
-function wait(ms){
+function wait(ms) {
     var start = new Date().getTime();
     var end = start;
-    while(end < start + ms) {
-      end = new Date().getTime();
-   }
- }
- 
+    while (end < start + ms) {
+        end = new Date().getTime();
+    }
+}
+
 
 function init() {
     // Need the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
@@ -57,8 +57,8 @@ function init() {
                 message: '\nWelcome to the Main Menu. \nPlease make a choice to continue:',
                 name: 'mainMenu',
                 choices: [
-                    'view all departments', 
-                    'view all roles', 
+                    'view all departments',
+                    'view all roles',
                     'view all employees',
                     'add a department',
                     'add a role',
@@ -67,7 +67,7 @@ function init() {
                 ],
             },
 
-        ]) .then(choice => {
+        ]).then(choice => {
             if (choice.mainMenu === 'view all departments') {
                 console.log('success-departments!');
                 viewDepartments();
@@ -87,56 +87,61 @@ function init() {
                 console.log('success-add update an employee role');
             }
 
-        });    
-        
-        // formatted table showing department names and department ids
-        function viewDepartments() {
-            const sqlInput = `SELECT * FROM department`;
+        });
 
-            db.query(sqlInput, (err, data) => {
-                if (err) {
-                    console.log(err);
-                };
-                console.log("All Departments:")
-                console.table(data);
+    // formatted table showing department names and department ids
+    function viewDepartments() {
+        const sqlInput = `SELECT * FROM department`;
 
-                wait(1000);
-                init();
-            });
-        }
-        // display the job title, role id, the department that role belongs to, and the salary for that role    
-        function viewRoles() {
-            console.log('viewRoles function works');
-            const sqlInput = `SELECT * FROM role`;
+        db.query(sqlInput, (err, data) => {
+            if (err) {
+                console.log(err);
+            };
+            console.log("All Departments:")
+            console.table(data);
 
-            db.query(sqlInput, (err, data) => {
-                if (err) {
-                    console.log(err);
-                };
-                console.log("The Roles:")
-                console.table(data);
+            wait(1000);
+            init();
+        });
+    }
+    // display the job title, role id, the department that role belongs to, and the salary for that role    
+    function viewRoles() {
+        console.log('viewRoles function works');
+        // const sqlInput = `SELECT * FROM role`;
+        const sqlInput = `
+            SELECT role.title, role.salary, department.name
+            FROM role, department
+            WHERE role.department_id = department.id;`
+            ;
 
-                wait(1000);
-                init();
-            });
-        }
-        // display employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to    
-        function viewEmployees() {
-            console.log('viewEmployees function works');
-            const sqlInput = `SELECT * FROM employee`;
+        db.query(sqlInput, (err, data) => {
+            if (err) {
+                console.log(err);
+            };
+            console.log("The Roles:")
+            console.table(data);
 
-            db.query(sqlInput, (err, data) => {
-                if (err) {
-                    console.log(err);
-                };
-                console.log("View All Employees:")
-                console.table(data);
+            wait(1000);
+            init();
+        });
+    }
+    // display employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to    
+    function viewEmployees() {
+        console.log('viewEmployees function works');
+        const sqlInput = `SELECT * FROM employee`;
 
-                wait(1000);
-                init();
-            });
-        }
-    };
+        db.query(sqlInput, (err, data) => {
+            if (err) {
+                console.log(err);
+            };
+            console.log("View All Employees:")
+            console.table(data);
+
+            wait(1000);
+            init();
+        });
+    }
+};
 // ^^ end init() function ^^ //
 
 

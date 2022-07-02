@@ -109,7 +109,7 @@ function init() {
         console.log('viewRoles function works');
         // const sqlInput = `SELECT * FROM role`;
         const sqlInput = `
-            SELECT role.title, role.salary, department.name
+            SELECT role.id, role.title, department.name, role.salary
             FROM role, department
             WHERE role.department_id = department.id;`
             ;
@@ -128,6 +128,7 @@ function init() {
     // display employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to    
     function viewEmployees() {
         console.log('viewEmployees function works');
+        // const sqlInput = `SELECT * FROM employee`;
         const sqlInput = `SELECT * FROM employee`;
 
         db.query(sqlInput, (err, data) => {

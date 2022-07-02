@@ -88,6 +88,7 @@ function init() {
                 addEmployee();
             } else if (choice.mainMenu === 'update an employee role') {
                 console.log('success-add update an employee role');
+                updateEmpRole();
             }
 
         });
@@ -171,7 +172,7 @@ function init() {
                     };
                     console.log("Here is the updated department database:")
                     console.table(data);
-        
+
                     wait(1000);
                     init();
                 });
@@ -201,7 +202,7 @@ function init() {
             ]).then(userInput => {
                 const sqlInput = `INSERT INTO role (title, salary, department_id) VALUES ("${userInput.roleTitle}", "${userInput.roleSalary}", "${userInput.roleDept}" );`;
 
-                console.log("inputs are: " + userInput.roleTitle + ", "+ userInput.roleSalary + ", " + userInput.roleDept);
+                console.log("inputs are: " + userInput.roleTitle + ", " + userInput.roleSalary + ", " + userInput.roleDept);
 
                 db.query(sqlInput, (err, data) => {
                     if (err) {
@@ -209,7 +210,7 @@ function init() {
                     };
                     console.log("Here is the updated role database:")
                     console.table(data);
-        
+
                     wait(1000);
                     init();
                 });
@@ -244,7 +245,7 @@ function init() {
             ]).then(userInput => {
                 const sqlInput = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${userInput.empFirstName}", "${userInput.empLastName}", ${userInput.empRole}, ${userInput.empManager} );`;
 
-                console.log("inputs are: " + userInput.empFirstName + ", "+ userInput.empLastName + ", " + userInput.empRole + ", " + userInput.empManager);
+                console.log("inputs are: " + userInput.empFirstName + ", " + userInput.empLastName + ", " + userInput.empRole + ", " + userInput.empManager);
 
                 db.query(sqlInput, (err, data) => {
                     if (err) {
@@ -252,12 +253,50 @@ function init() {
                     };
                     console.log("Here is the updated role database:")
                     console.table(data);
-        
+
                     wait(1000);
                     init();
                 });
             });
     }
+    // updateEmpRole => prompts to select an employee to update and their new role and this information is updated in the database 
+    function updateEmpRole() {
+        const sqlInput = `SELECT * FROM employee`;
+        console.log("Update Employee's Role:")
+
+        inquirer
+            .prompt([
+                {
+                    type: 'input',
+                    message: 'Which Employee would you like to update',
+                    name: 'updateEmpName',
+                },
+                {
+                    type: 'input',
+                    message: 'What is the their new role?',
+                    name: 'updateEmpRole',
+                },
+            ]).then(userInput => {
+
+                console.log("inputs are: " + userInput.updateEmpName + ", " + userInput.updateEmpRole);
+
+                db.query(sqlInput, (err, data) => {
+                    if (err) {
+                        console.log(err);
+                    };
+                    console.log("Here is the updated employee database:")
+                    console.table(data);
+
+                    wait(1000);
+                    init();
+                });
+            });
+
+
+    }
+
+
+
 
 
 };

@@ -82,8 +82,10 @@ function init() {
                 addDepartments();
             } else if (choice.mainMenu === 'add a role') {
                 console.log('success-add role');
+                addRoles();
             } else if (choice.mainMenu === 'add an employee') {
                 console.log('success-add an employhee');
+                addEmployee();
             } else if (choice.mainMenu === 'update an employee role') {
                 console.log('success-add update an employee role');
             }
@@ -174,13 +176,88 @@ function init() {
                     init();
                 });
             });
-                
-
-
-
     }
+    // addRoles - prompt to enter the name, salary, and department for the role and that role is added to the database
+    function addRoles() {
+        console.log('addRoles function works');
 
+        inquirer
+            .prompt([
+                {
+                    type: 'input',
+                    message: 'Please enter the title of the role you would like to add: ',
+                    name: 'roleTitle',
+                },
+                {
+                    type: 'input',
+                    message: 'Please enter the salary of the role you would like to add: ',
+                    name: 'roleSalary',
+                },
+                {
+                    type: 'input',
+                    message: 'Please enter the department_id of the role you would like to add: ',
+                    name: 'roleDept',
+                },
+            ]).then(userInput => {
+                const sqlInput = `INSERT INTO role (title, salary, department_id) VALUES ("${userInput.roleTitle}", "${userInput.roleSalary}", "${userInput.roleDept}" );`;
 
+                console.log("inputs are: " + userInput.roleTitle + ", "+ userInput.roleSalary + ", " + userInput.roleDept);
+
+                db.query(sqlInput, (err, data) => {
+                    if (err) {
+                        console.log(err);
+                    };
+                    console.log("Here is the updated role database:")
+                    console.table(data);
+        
+                    wait(1000);
+                    init();
+                });
+            });
+    }
+    // addEmployee => prompts to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
+    function addEmployee() {
+        console.log('addEmployee function works');
+
+        inquirer
+            .prompt([
+                {
+                    type: 'input',
+                    message: 'Employee first name? ',
+                    name: 'empFirstName',
+                },
+                {
+                    type: 'input',
+                    message: 'Employee last name? ',
+                    name: 'empLastName',
+                },
+                {
+                    type: 'input',
+                    message: 'What is the their role?',
+                    name: 'empRole',
+                },
+                {
+                    type: 'input',
+                    message: 'Who is their manager?',
+                    name: 'empManager',
+                },
+            ]).then(userInput => {
+                const sqlInput = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ("${userInput.empFirstName}", "${userInput.empLastName}", "${userInput.empRole}", "${userInput.empManager}" );`;
+
+                console.log("inputs are: " + userInput.empFirstName + ", "+ uuserInput.empLastName + ", " + userInput.empRole + ", " + userInput.empManager);
+
+                db.query(sqlInput, (err, data) => {
+                    if (err) {
+                        console.log(err);
+                    };
+                    console.log("Here is the updated role database:")
+                    console.table(data);
+        
+                    wait(1000);
+                    init();
+                });
+            });
+    }
 
 
 };

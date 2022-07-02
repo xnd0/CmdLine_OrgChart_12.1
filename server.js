@@ -73,6 +73,7 @@ function init() {
                 viewDepartments();
             } else if (choice.mainMenu === 'view all roles') {
                 console.log('success-roles!');
+                viewRoles();
             } else if (choice.mainMenu === 'view all employees') {
                 console.log('success-employees');
             } else if (choice.mainMenu === 'add a department') {
@@ -89,11 +90,8 @@ function init() {
         
         // formatted table showing department names and department ids
         function viewDepartments() {
-            console.log('viewDepartments function works');
-
             const sqlInput = `SELECT * FROM department`;
 
-            // console.log(sqlInput);
             db.query(sqlInput, (err, data) => {
                 if (err) {
                     console.log(err);
@@ -101,21 +99,28 @@ function init() {
                 console.log("All Departments:")
                 console.table(data);
 
-                // setInterval(init(), 2000);
-                
-                wait(2000);
+                wait(1000);
                 init();
-                
             });
-
-
+        }
+        // display the job title, role id, the department that role belongs to, and the salary for that role    
         function viewRoles() {
             console.log('viewRoles function works');
+            const sqlInput = `SELECT * FROM role`;
+
+            db.query(sqlInput, (err, data) => {
+                if (err) {
+                    console.log(err);
+                };
+                console.log("The Roles:")
+                console.table(data);
+
+                wait(1000);
+                init();
+            });
         }    
 
-        }
-
-};
+    };
 // ^^ end init() function ^^ //
 
 

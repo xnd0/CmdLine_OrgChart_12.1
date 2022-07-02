@@ -130,7 +130,7 @@ function init() {
         console.log('viewEmployees function works');
         // const sqlInput = `SELECT * FROM employee`;
         const sqlInput = `
-            SELECT department.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, department.name AS manager
+            SELECT employee.id, employee.first_name, employee.last_name, role.title, department.name AS department, role.salary, department.name AS manager
             FROM employee 
             LEFT JOIN employee manager ON manager.id = employee.manager_id 
             INNER JOIN role ON (role.id = employee.role_id) 

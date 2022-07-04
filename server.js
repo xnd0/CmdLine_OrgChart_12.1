@@ -4,25 +4,11 @@
 
 
 import express from 'express';
-
 import inquirer from 'inquirer';
-
 import mysql from 'mysql2';
 
 const app = express();
-
-// const db = mysql.createConnection(
-//     {
-//         host: "localhost",
-//         user: process.env.DB_USER,
-//         password: process.env.DB_PASSWORD,
-//         database: process.env.DB_NAME
-//     },
-//     console.log(`connected to the databse`)
-// );
-// console.log(db);
-
-
+const PORT = process.env.PORT || 3001;
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -38,10 +24,8 @@ function wait(ms) {
     }
 }
 
-
 function init() {
-    // Need the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role
-
+    // Menu with the following options: view all departments, view all roles, view all employees, add a department, add a role, add an employee, and update an employee role, exit.
     inquirer
         .prompt([
             {
@@ -62,25 +46,18 @@ function init() {
 
         ]).then(choice => {
             if (choice.mainMenu === 'view all departments') {
-                console.log('success-departments!');
                 viewDepartments();
             } else if (choice.mainMenu === 'view all roles') {
-                console.log('success-roles!');
                 viewRoles();
             } else if (choice.mainMenu === 'view all employees') {
-                console.log('success-employees');
                 viewEmployees();
             } else if (choice.mainMenu === 'add a department') {
-                console.log('success-add Department');
                 addDepartments();
             } else if (choice.mainMenu === 'add a role') {
-                console.log('success-add role');
                 addRoles();
             } else if (choice.mainMenu === 'add an employee') {
-                console.log('success-add an employhee');
                 addEmployee();
             } else if (choice.mainMenu === 'update an employee role') {
-                console.log('success-add update an employee role');
                 updateEmpRole();
             } else if (choice.mainMenu === 'exit') {
                 exit();
@@ -102,7 +79,8 @@ function init() {
             wait(1000);
             init();
         });
-    }
+    };
+
     // display the job title, role id, the department that role belongs to, and the salary for that role    
     function viewRoles() {
         console.log('viewRoles function works');
@@ -122,7 +100,8 @@ function init() {
             wait(1000);
             init();
         });
-    }
+    };
+
     // display employee data, including employee ids, first names, last names, job titles, departments, salaries, and managers that the employees report to    
     function viewEmployees() {
         console.log('viewEmployees function works');
@@ -144,7 +123,8 @@ function init() {
             wait(1000);
             init();
         });
-    }
+    };
+
     // addDepartment function - prompt to enter name of the department and it is added to the database
     function addDepartments() {
         console.log('addDepartments function works');
@@ -172,7 +152,8 @@ function init() {
                     init();
                 });
             });
-    }
+    };
+
     // addRoles - prompt to enter the name, salary, and department for the role and that role is added to the database
     function addRoles() {
         console.log('addRoles function works');
@@ -210,7 +191,8 @@ function init() {
                     init();
                 });
             });
-    }
+    };
+
     // addEmployee => prompts to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
     function addEmployee() {
         console.log('addEmployee function works');
@@ -253,7 +235,8 @@ function init() {
                     init();
                 });
             });
-    }
+    };
+
     // updateEmpRole => prompts to select an employee to update and their new role and this information is updated in the database 
     function updateEmpRole() {
         const sqlInput = `SELECT * FROM employee`;
@@ -286,22 +269,19 @@ function init() {
                     init();
                 });
             });
-
-
-    }
+    };
+    
     // exit function
     function exit() {
-       process.exit(); 
+        process.exit();
     };
-
-
-
-
 };
 // ^^ end init() function ^^ //
 
 
-
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});
 
 
 init();

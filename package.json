@@ -25,5 +25,7 @@
     "inquirer": "^9.0.0",
     "mysql2": "^2.3.3",
     "sequelize": "^6.21.2"
-  }
+  },
+  "main": "server.js",
+  "devDependencies": {}
 }

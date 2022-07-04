@@ -9,13 +9,6 @@ import inquirer from 'inquirer';
 
 import mysql from 'mysql2';
 
-import consoleTable from 'console.table';
-
-// import sequelize from 'sequelize';
-// import {sequelize} from '../config/connection.js';
-// import connection from '../CmdLine_OrgChart_12.1/config/connection.js';
-
-// const PORT = process.env.PORT || 3001;
 const app = express();
 
 // const db = mysql.createConnection(
@@ -32,7 +25,6 @@ const app = express();
 
 const db = mysql.createConnection({
     host: 'localhost',
-    // MySQL info,
     user: 'root',
     password: 'potato22',
     database: 'user_db'
@@ -64,6 +56,7 @@ function init() {
                     'add a role',
                     'add an employee',
                     'update an employee role',
+                    'exit',
                 ],
             },
 
@@ -89,6 +82,8 @@ function init() {
             } else if (choice.mainMenu === 'update an employee role') {
                 console.log('success-add update an employee role');
                 updateEmpRole();
+            } else if (choice.mainMenu === 'exit') {
+                exit();
             }
 
         });
@@ -294,7 +289,10 @@ function init() {
 
 
     }
-
+    // exit function
+    function exit() {
+       process.exit(); 
+    };
 
 
 

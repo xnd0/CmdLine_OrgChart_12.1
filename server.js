@@ -16,6 +16,10 @@ const db = mysql.createConnection({
     database: 'user_db'
 })
 
+// time to wait (milliseconds)
+let thisLong = 1800;
+
+// wait function
 function wait(ms) {
     var start = new Date().getTime();
     var end = start;
@@ -76,7 +80,7 @@ function init() {
             console.log("All Departments:")
             console.table(data);
 
-            wait(1000);
+            wait(thisLong);
             init();
         });
     };
@@ -97,7 +101,7 @@ function init() {
             console.log("The Roles:")
             console.table(data);
 
-            wait(1000);
+            wait(thisLong);
             init();
         });
     };
@@ -120,7 +124,7 @@ function init() {
             console.log("View All Employees:")
             console.table(data);
 
-            wait(1000);
+            wait(thisLong);
             init();
         });
     };
@@ -148,7 +152,7 @@ function init() {
                     console.log("Here is the updated department database:")
                     console.table(data);
 
-                    wait(1000);
+                    wait(thisLong);
                     init();
                 });
             });
@@ -187,7 +191,7 @@ function init() {
                     console.log("Here is the updated role database:")
                     console.table(data);
 
-                    wait(1000);
+                    wait(thisLong);
                     init();
                 });
             });
@@ -231,7 +235,7 @@ function init() {
                     console.log("Here is the updated role database:")
                     console.table(data);
 
-                    wait(1000);
+                    wait(thisLong);
                     init();
                 });
             });
@@ -265,12 +269,12 @@ function init() {
                     console.log("Here is the updated employee database:")
                     console.table(data);
 
-                    wait(1000);
+                    wait(thisLong);
                     init();
                 });
             });
     };
-    
+
     // exit function
     function exit() {
         process.exit();
